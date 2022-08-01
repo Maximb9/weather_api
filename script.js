@@ -1,5 +1,8 @@
 const link = "http://api.weatherstack.com/current?access_key=bb9b12e131244d05701e24f6c41f5185";
 
+const root = document.getElementById('root');
+
+
 let store = {
   city: 'London',
   feelslike: 0,
@@ -15,6 +18,7 @@ let store = {
   wind_speed: 0
 }
 
+
 const fetchData = async() => {
     const result = await fetch(`${link}&query=${store.city}`); 
     const data = await result.json();
@@ -29,6 +33,8 @@ const fetchData = async() => {
         uv_index: uvIndex, 
         visibility,
         is_day: isDay,
+        weather_descriptions: descriptions,
+        wind_speed: windSpeed
       },
     } = data;
 
@@ -42,11 +48,15 @@ const fetchData = async() => {
       uvIndex,
       visibility,
       isDay,
-      descriptions: '',
-      wind_speed: 0
+      windSpeed,
+      descriptions: descriptions[0],
     }
 
-    console.log(data);
+    renderComponent();
+}
+
+const renderComponent = () => {
+  root.innerHTML = `${store.temperature}°`
 }
 
 fetchData();
