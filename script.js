@@ -27,7 +27,8 @@ const fetchData = async() => {
       current: { 
         feelslike, 
         cloudcover, 
-        temperature, 
+        temperature,
+        humidity, 
         observation_time: observationTime, 
         pressure, 
         uv_index: uvIndex, 
@@ -42,6 +43,7 @@ const fetchData = async() => {
       ...store,
       feelslike,
       cloudcover,
+      humidity,
       temperature,
       observationTime,
       pressure,
@@ -55,8 +57,31 @@ const fetchData = async() => {
     renderComponent();
 }
 
+
+const markup = () => {
+  const { city, description, observationTime, temperature, isDay, properties } =
+    store;
+
+  return `<div class="container">
+            <div class="top">
+              <div class="city">
+                <div class="city-subtitle">Weather Today in</div>
+                  <div class="city-title" id="city">
+                  <span></span>
+                </div>
+              </div>
+              <div class="city-info">
+                <div class="top-left">
+
+              </div>
+            </div>
+          </div>
+        <div id="properties"></div>
+      </div>`;
+};
+
 const renderComponent = () => {
-  root.innerHTML = `${store.temperature}°`
+  root.innerHTML = markup();
 }
 
 fetchData();
